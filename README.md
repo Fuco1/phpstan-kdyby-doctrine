@@ -19,5 +19,5 @@ And include extension.neon in your project's PHPStan config:
 
 ```
 includes:
-    - vendor/phpstan/phpstan-doctrine-kdyby/extension.neon
+    - vendor/phpstan/phpstan-kdyby-doctrine/extension.neon
 ```
