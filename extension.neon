@@ -1,4 +1,5 @@
 services:
+    -
         class: PHPStan\Type\Kdyby\Doctrine\EntityManagerDynamicReturnTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
