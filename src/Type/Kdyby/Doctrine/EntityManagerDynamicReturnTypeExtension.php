@@ -23,7 +23,6 @@ class EntityManagerDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMe
             'find',
             'getReference',
             'getPartialReference',
-            'getRepository',
         ], true);
     }
 

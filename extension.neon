@@ -3,3 +3,7 @@ services:
         class: PHPStan\Type\Kdyby\Doctrine\EntityManagerDynamicReturnTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
+    -
+        class: PHPStan\Type\Kdyby\Doctrine\EntityManagerRepositoryReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
