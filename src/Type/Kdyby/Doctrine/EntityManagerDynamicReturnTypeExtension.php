@@ -12,55 +12,55 @@ use PHPStan\Type\TypeCombinator;
 class EntityManagerDynamicReturnTypeExtension implements \PHPStan\Type\DynamicMethodReturnTypeExtension
 {
 
-    public static function getClass(): string
-    {
-        return \Kdyby\Doctrine\EntityManager::class;
-    }
+	public static function getClass(): string
+	{
+		return \Kdyby\Doctrine\EntityManager::class;
+	}
 
-    public function isMethodSupported(MethodReflection $methodReflection): bool
-    {
-        return in_array($methodReflection->getName(), [
-            'find',
-            'getReference',
-            'getPartialReference',
-        ], true);
-    }
+	public function isMethodSupported(MethodReflection $methodReflection): bool
+	{
+		return in_array($methodReflection->getName(), [
+			'find',
+			'getReference',
+			'getPartialReference',
+		], true);
+	}
 
-    public function getTypeFromMethodCall(
-        MethodReflection $methodReflection,
-        MethodCall $methodCall,
-        Scope $scope
-    ): Type
-    {
-        if (count($methodCall->args) === 0) {
-            return $methodReflection->getReturnType();
-        }
-        $arg = $methodCall->args[0]->value;
-        if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
-            return $methodReflection->getReturnType();
-        }
+	public function getTypeFromMethodCall(
+		MethodReflection $methodReflection,
+		MethodCall $methodCall,
+		Scope $scope
+	): Type
+	{
+		if (count($methodCall->args) === 0) {
+			return $methodReflection->getReturnType();
+		}
+		$arg = $methodCall->args[0]->value;
+		if (!($arg instanceof \PhpParser\Node\Expr\ClassConstFetch)) {
+			return $methodReflection->getReturnType();
+		}
 
-        $class = $arg->class;
-        if (!($class instanceof \PhpParser\Node\Name)) {
-            return $methodReflection->getReturnType();
-        }
+		$class = $arg->class;
+		if (!($class instanceof \PhpParser\Node\Name)) {
+			return $methodReflection->getReturnType();
+		}
 
-        $class = (string) $class;
+		$class = (string) $class;
 
-        if ($class === 'static') {
-            return $methodReflection->getReturnType();
-        }
+		if ($class === 'static') {
+			return $methodReflection->getReturnType();
+		}
 
-        if ($class === 'self') {
-            $class = $scope->getClassReflection()->getName();
-        }
+		if ($class === 'self') {
+			$class = $scope->getClassReflection()->getName();
+		}
 
-        $type = new ObjectType($class);
-        if ($methodReflection->getName() === 'find') {
-            $type = TypeCombinator::addNull($type);
-        }
+		$type = new ObjectType($class);
+		if ($methodReflection->getName() === 'find') {
+			$type = TypeCombinator::addNull($type);
+		}
 
-        return $type;
-    }
+		return $type;
+	}
 
 }
