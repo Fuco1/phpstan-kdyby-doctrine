@@ -1,4 +1,4 @@
-# Kdyby/Doctrine extensions for PHPStan
+# Kdyby/Doctrine extensions for PHPStan [![Build Status](https://travis-ci.org/Fuco1/phpstan-kdyby-doctrine.svg?branch=master)](https://travis-ci.org/Fuco1/phpstan-kdyby-doctrine)
 
 * [PHPStan](https://github.com/phpstan/phpstan)
 * [Kdyby/Doctrine](https://github.com/Kdyby/Doctrine)
